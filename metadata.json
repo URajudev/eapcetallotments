@@ -1,0 +1,6 @@
+{
+  "name": "EAPCET 2026 Allotment Records",
+  "description": "Comprehensive EAPCET 2026 allotment intelligence platform with Phase 1 & 2 merge engine, candidate status tracker, seat matrix, cutoff analytics, and institutional allotments.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
