@@ -22,9 +22,11 @@ export interface Student {
   fatherName?: string;
   region?: string;
   email?: string;
+  registeredAt?: string;
 }
 
 export interface PhaseAllotment {
+  id?: string;
   studentId: string;
   hallTicket: string;
   phase: 'PHASE_1' | 'PHASE_2';
@@ -38,34 +40,52 @@ export interface PhaseAllotment {
   allotted: boolean;
   allotmentOrderNo?: string;
   reportingDate?: string;
+  allotmentDate?: string;
+}
+
+export interface AllotmentJourneyStep {
+  step: number;
+  phase: PhaseType;
+  title: string;
+  collegeCode?: string;
+  collegeName?: string;
+  branchCode?: string;
+  branchName?: string;
+  rank?: number;
+  statusBadge: AllotmentStatus;
+  description: string;
 }
 
 export interface DerivedAllotment {
   student: Student;
   status: AllotmentStatus;
-  statusDescription: string;
+  statusDescription?: string;
   
   // Current / Final Allotment
   finalCollege: string | null;
   finalCollegeCode: string | null;
   finalBranch: string | null;
   finalBranchCode: string | null;
+  finalRank?: number;
   
   // Previous Allotment (if transferred or upgraded)
-  previousCollege: string | null;
-  previousCollegeCode: string | null;
-  previousBranch: string | null;
-  previousBranchCode: string | null;
+  previousCollege?: string | null;
+  previousCollegeCode?: string | null;
+  previousBranch?: string | null;
+  previousBranchCode?: string | null;
   
   // Raw records preserved
-  phase1Record: PhaseAllotment | null;
-  phase2Record: PhaseAllotment | null;
+  phase1Record?: PhaseAllotment | null;
+  phase2Record?: PhaseAllotment | null;
   
   // Active phase snapshot
-  activeCollege: string | null;
-  activeCollegeCode: string | null;
-  activeBranch: string | null;
-  activeBranchCode: string | null;
+  activeCollege?: string | null;
+  activeCollegeCode?: string | null;
+  activeBranch?: string | null;
+  activeBranchCode?: string | null;
+
+  allotmentJourney?: AllotmentJourneyStep[];
+  updatedAt?: string;
 }
 
 export interface SeatAvailability {
@@ -76,10 +96,10 @@ export interface SeatAvailability {
   branchCode: string;
   branchName: string;
   category: Category;
-  gender: GenderCategory;
+  gender: GenderCategory | 'BOYS' | 'GIRLS';
   availableSeats: number;
   totalIntake: number;
-  filledSeats: number;
+  filledSeats?: number;
 }
 
 export interface CutoffRecord {
@@ -93,33 +113,39 @@ export interface CutoffRecord {
   gender: 'BOYS' | 'GIRLS';
   highestRank: number; // Minimum numeric rank (e.g., 120 is higher rank than 1500)
   lowestRank: number;  // Maximum numeric rank (closing cutoff rank)
-  totalAdmitted: number;
-  isDerived: boolean;
+  totalAdmitted?: number;
+  studentCount?: number;
+  isDerived?: boolean;
 }
 
 export interface BranchInfo {
   branchCode: string;
   branchName: string;
-  intake: number;
-  phase1Allotted: number;
-  phase2Allotted: number;
-  finalAllotted: number;
-  availablePhase2: number;
+  intake?: number;
+  allotted?: number;
+  vacant?: number;
+  phase1Allotted?: number;
+  phase2Allotted?: number;
+  finalAllotted?: number;
+  availablePhase2?: number;
 }
 
 export interface College {
+  id?: string;
   collegeCode: string;
   collegeName: string;
-  location: string;
-  district: string;
-  collegeType: 'Government' | 'Private Autonomous' | 'University' | 'Affiliated';
-  establishedYear: number;
-  rating: number;
+  location?: string;
+  district?: string;
+  region?: string;
+  collegeType?: 'Government' | 'Private Autonomous' | 'University' | 'Affiliated' | string;
+  establishedYear?: number;
+  rating?: number;
   branches: BranchInfo[];
   totalIntake: number;
-  phase1Allotted: number;
-  phase2Allotted: number;
-  finalAllotted: number;
+  filledSeats?: number;
+  phase1Allotted?: number;
+  phase2Allotted?: number;
+  finalAllotted?: number;
   naacGrade?: string;
   nirfRank?: number;
 }
@@ -148,7 +174,7 @@ export interface DataSourceConfig {
 }
 
 export interface SystemSettings {
-  dataMode: 'MOCK' | 'LIVE';
+  dataMode: 'MOCK' | 'LIVE' | 'LIVE_DATABASE';
   activePhase: PhaseType;
   allowPublicCandidateSearch: boolean;
   maskHallTicketDigits: boolean;
