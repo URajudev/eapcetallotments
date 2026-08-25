@@ -12,7 +12,7 @@ import {
   Gender, 
   SearchFilter 
 } from '../types';
-import { REAL_COLLEGES, REAL_CUTOFFS, REAL_SEAT_AVAILABILITY, PHASE1_STATS } from '../data/phase1Dataset';
+import { REAL_COLLEGES, REAL_CUTOFFS, REAL_SEAT_AVAILABILITY, PHASE1_STATS } from './collegesData';
 import { deriveFinalAllotment, getCollegeAllottedStudents } from './mergeEngine';
 
 export interface SupabaseRow {
