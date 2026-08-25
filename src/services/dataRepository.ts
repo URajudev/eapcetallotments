@@ -146,7 +146,7 @@ const DEFAULT_SETTINGS: SystemSettings = {
   lastUpdated: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) + ' 12:00 PM IST',
 };
 
-class DataRepository {
+export class DataRepository {
   private colleges: College[] = [...REAL_COLLEGES];
   private seatAvailability: SeatAvailability[] = [...REAL_SEAT_AVAILABILITY];
   private officialCutoffs: CutoffRecord[] = [...REAL_CUTOFFS];
